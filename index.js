@@ -1,6 +1,6 @@
 const EventEmitter = require('events').EventEmitter
-const Wallet = require('ethereumjs-wallet')
-const ethUtil = require('ethereumjs-util')
+const Wallet = require('@starcoin/stc-wallet')
+const ethUtil = require('@starcoin/stc-util')
 const type = 'Simple Key Pair'
 const sigUtil = require('eth-sig-util')
 
@@ -100,7 +100,7 @@ class SimpleKeyring extends EventEmitter {
     const sig = sigUtil.decrypt(encryptedData, privKey)
     return Promise.resolve(sig)
   }
-  
+
   // personal_signTypedData, signs data along with the schema
   signTypedData (withAccount, typedData, opts = { version: 'V1' }) {
     switch (opts.version) {
@@ -142,7 +142,7 @@ class SimpleKeyring extends EventEmitter {
     const publicKey = sigUtil.getEncryptionPublicKey(privKey)
     return Promise.resolve(publicKey)
   }
-  
+
   getPrivateKeyFor (address, opts = {}) {
     if (!address) {
       throw new Error('Must specify address.');
