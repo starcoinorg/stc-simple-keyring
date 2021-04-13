@@ -1,0 +1,12 @@
+*.tgz
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Dependency directories
+node_modules/
+
+.idea
