@@ -16,7 +16,7 @@ class SimpleKeyring extends EventEmitter {
   }
 
   serialize () {
-    return Promise.resolve(this.wallets.map(w => w.getPrivateKey().toString('hex')))
+    return Promise.resolve(this.wallets.map(w => ({ privateKey: w.getPrivateKey().toString('hex'), publicKey: w.getPublicKey().toString('hex') } )))
   }
 
   deserialize (keyPairs = []) {
