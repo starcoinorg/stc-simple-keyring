@@ -22,6 +22,7 @@
   "dependencies": {
     "@starcoin/stc-wallet": "^0.1.0",
     "@starcoin/stc-util": "^0.2.0",
+    "@starcoin/starcoin": "^0.3.0",
     "eth-sig-util": "^2.5.0",
     "ethereumjs-abi": "^0.6.5",
     "events": "^1.1.1",
