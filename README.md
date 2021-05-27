@@ -1,8 +1,6 @@
-# Simple Keyring [![CircleCI](https://circleci.com/gh/MetaMask/eth-simple-keyring.svg?style=svg)](https://circleci.com/gh/MetaMask/eth-simple-keyring)
+# stc-simple-keyring
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/MetaMask/eth-simple-keyring.svg)](https://greenkeeper.io/)
-
-A simple JS class wrapped around [ethereumjs-wallet](https://github.com/ethereumjs/ethereumjs-wallet) designed to expose an interface common to many different signing strategies to be used in a `KeyringController`; such as the one used in [MetaMask](https://metamask.io/)
+A simple JS class wrapped around [stc-wallet](https://github.com/starcoinorg/stc-wallet) designed to expose an interface common to many different signing strategies to be used in a `KeyringController`; such as the one used in [StarMask](https://starcoin.org)
 
 ## The Keyring Class Protocol
 
@@ -51,25 +49,9 @@ When this method is called, you must return an array of hex-string addresses for
 
 This method will receive a hex-prefixed, all-lowercase address string for the account you should sign the incoming transaction with.
 
-For your convenience, the transaction is an instance of ethereumjs-tx, (https://github.com/ethereumjs/ethereumjs-tx) so signing can be as simple as:
+For your convenience, the transaction is an instance of RawUserTransaction, (https://github.com/starcoinorg/starcoin.js/blob/master/src/lib/runtime/starcoin_types/index.ts#L504)  
 
-```
-transaction.sign(privateKey)
-```
-
-You must return a valid signed ethereumjs-tx (https://github.com/ethereumjs/ethereumjs-tx) object when complete, it can be the same transaction you received.
-
-### signMessage(address, data)
-
-The `eth_sign` method will receive the incoming data, already hashed, and must sign that hash, and then return the raw signed hash.
-
-### getEncryptionPublicKey(address)
-
-This provides the public key for encryption function.
-
-### decryptMessage(address, data)
-
-The `eth_decryptMessage` method will receive the incoming data in array format that returns `encrypt` function in `eth-sig-util` and must decrypt message, and then return the raw message.
+it returns a hex that will be used for [txpool.submit_hex_transaction](https://playground.open-rpc.org/?schemaUrl=https://developer.starcoin.org/rpc/schema/txpool.json)
 
 ### exportAccount(address)
 
