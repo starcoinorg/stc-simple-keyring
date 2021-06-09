@@ -1,6 +1,6 @@
 {
   "name": "@starcoin/stc-simple-keyring",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "A simple standard interface for a series of Starcoin private keys.",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/starcoinorg/stc-simple-keyring#readme",
   "dependencies": {
-    "@starcoin/stc-wallet": "^0.2.1",
+    "@starcoin/stc-wallet": "^0.4.0",
     "@starcoin/stc-util": "^0.3.0",
     "@starcoin/starcoin": "^1.0.0",
     "eth-sig-util": "^2.5.0",
