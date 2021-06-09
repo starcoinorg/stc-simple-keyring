@@ -189,6 +189,14 @@ class SimpleKeyring extends EventEmitter {
     }))
   }
 
+  getPublicKeys() {
+    return Promise.all(this.wallets.map((w) => {
+      const address = sigUtil.normalize(w.getAddress().toString('hex'))
+      const publicKey = w.getPublicKeyString()
+      return { address, publicKey }
+    }))
+  }
+
   /* PRIVATE METHODS */
 
   _getWalletForAccount(account, opts = {}) {
