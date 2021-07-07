@@ -1,5 +1,6 @@
 const EventEmitter = require('events').EventEmitter
 const Wallet = require('@starcoin/stc-wallet')
+const arrayify = require('@ethersproject/bytes').arrayify
 const ethUtil = require('@starcoin/stc-util')
 const utils = require('@starcoin/starcoin').utils
 const encoding = require('@starcoin/starcoin').encoding
@@ -86,9 +87,10 @@ class SimpleKeyring extends EventEmitter {
   // For personal_sign, we need to prefix the message:
   signPersonalMessage(address, msgHex, opts = {}) {
     const privKey = this.getPrivateKeyFor(address, opts);
-    const privKeyBuffer = Buffer.from(privKey, 'hex')
-    const sig = sigUtil.personalSign(privKeyBuffer, { data: msgHex })
-    return Promise.resolve(sig)
+    return utils.sign.signPersonalMessage(arrayify(msgHex), privKey)
+      .then((signature) => {
+        return signature
+      })
   }
 
   // For eth_decryptMessage:
