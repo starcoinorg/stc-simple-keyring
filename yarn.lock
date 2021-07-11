@@ -180,10 +180,38 @@
     "@ethersproject/properties" "^5.4.0"
     "@ethersproject/strings" "^5.4.0"
 
-"@starcoin/starcoin@^1.2.1", "@starcoin/starcoin@^1.4.0":
+"@starcoin/starcoin@^1.2.1":
   version "1.4.0"
   resolved "https://registry.npmjs.org/@starcoin/starcoin/-/starcoin-1.4.0.tgz#7d6a389e84c58e6b73e69bc4a4e043cd0cc052be"
   integrity sha512-8XrpA+8oCsPg/rUdh2tlwXN48wY94w9RCDVzq5EfPYxw4gSiZNabnLIfDvRVKVIaY+w+/Tpv+oPMIl1b1MRIhQ==
+  dependencies:
+    "@ethersproject/basex" "^5.0.4"
+    "@ethersproject/bignumber" "^5.0"
+    "@ethersproject/bytes" "^5.0.6"
+    "@ethersproject/hash" "^5.0.6"
+    "@ethersproject/keccak256" "^5.0.5"
+    "@ethersproject/logger" "^5.0.6"
+    "@ethersproject/properties" "^5.0.4"
+    "@ethersproject/sha2" "^5.0.4"
+    "@ethersproject/web" "^5.0.9"
+    "@starcoin/stc-ed25519" "^0.1.0"
+    bech32 "^2.0.0"
+    ethereumjs-util "5.1.0"
+    is-alphabetical "^1.0.4"
+    is-alphanumerical "^1.0.4"
+    is-decimal "^1.0.4"
+    is-hexadecimal "^1.0.4"
+    is-whitespace-character "^1.0.4"
+    is-word-character "^1.0.4"
+    js-sha3 "^0.8.0"
+    jssha "^3.2.0"
+    read-bigint "^0.1.6"
+    ws "7.2.3"
+
+"@starcoin/starcoin@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.npmjs.org/@starcoin/starcoin/-/starcoin-1.4.2.tgz#4327fdccfe963ad2fe30ab8bbe5f9081adea7400"
+  integrity sha512-2+NIsptmJU4dbijg8UquUwysA0xEsL7NAGEoaCEGjNSq+T+mqZAfIgSWykL6QLMZvz1kpcqrDEdmHUERi1LixA==
   dependencies:
     "@ethersproject/basex" "^5.0.4"
     "@ethersproject/bignumber" "^5.0"
