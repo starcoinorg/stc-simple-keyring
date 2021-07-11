@@ -87,7 +87,7 @@ class SimpleKeyring extends EventEmitter {
   // For personal_sign, we need to prefix the message:
   signPersonalMessage(address, msgHex, opts = {}) {
     const privKey = this.getPrivateKeyFor(address, opts);
-    return utils.sign.signPersonalMessage(arrayify(msgHex), privKey)
+    return utils.signedMessage.encodeSignedMessage(arrayify(msgHex), privKey)
       .then((signature) => {
         return signature
       })
