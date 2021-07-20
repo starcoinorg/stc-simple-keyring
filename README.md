@@ -51,7 +51,7 @@ This method will receive a hex-prefixed, all-lowercase address string for the ac
 
 For your convenience, the transaction is an instance of RawUserTransaction, (https://github.com/starcoinorg/starcoin.js/blob/master/src/lib/runtime/starcoin_types/index.ts#L504)  
 
-it returns a hex that will be used for [txpool.submit_hex_transaction](https://playground.open-rpc.org/?schemaUrl=https://developer.starcoin.org/rpc/schema/txpool.json)
+it returns a hex that will be used for [txpool.submit_hex_transaction](https://playground.open-rpc.org/?schemaUrl=https://starcoin.org/rpc/schema/txpool.json)
 
 ### exportAccount(address)
 
