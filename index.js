@@ -1,7 +1,7 @@
 const EventEmitter = require('events').EventEmitter
 const Wallet = require('@starcoin/stc-wallet')
 const arrayify = require('@ethersproject/bytes').arrayify
-const ethUtil = require('@starcoin/stc-util')
+const sthUtil = require('@starcoin/stc-util')
 const utils = require('@starcoin/starcoin').utils
 const encoding = require('@starcoin/starcoin').encoding
 const type = 'Simple Key Pair'
@@ -26,9 +26,9 @@ class SimpleKeyring extends EventEmitter {
     return new Promise((resolve, reject) => {
       try {
         this.wallets = keyPairs.map(({ privateKey, publicKey }) => {
-          const privateKeyStripped = ethUtil.stripHexPrefix(privateKey)
+          const privateKeyStripped = sthUtil.stripHexPrefix(privateKey)
           const privateKeyBuffer = Buffer.from(privateKeyStripped, 'hex')
-          const publicKeyStripped = ethUtil.stripHexPrefix(publicKey)
+          const publicKeyStripped = sthUtil.stripHexPrefix(publicKey)
           const publicKeyBuffer = Buffer.from(publicKeyStripped, 'hex')
           const wallet = Wallet.fromPrivatePublic(privateKeyBuffer, publicKeyBuffer);
           return wallet
@@ -46,18 +46,18 @@ class SimpleKeyring extends EventEmitter {
       newWallets.push(Wallet.generate())
     }
     this.wallets = this.wallets.concat(newWallets)
-    const hexWallets = newWallets.map(w => ethUtil.bufferToHex(w.getAddress()))
+    const hexWallets = newWallets.map(w => sthUtil.bufferToHex(w.getAddress()))
     return Promise.resolve(hexWallets)
   }
 
   getAccounts() {
-    return Promise.resolve(this.wallets.map(w => ethUtil.bufferToHex(w.getAddress())))
+    return Promise.resolve(this.wallets.map(w => sthUtil.bufferToHex(w.getAddress())))
   }
 
   // tx is rawUserTransaction.
   signTransaction(address, tx, opts = {}) {
     const privKey = this.getPrivateKeyFor(address, opts);
-    const privKeyStr = ethUtil.addHexPrefix(privKey.toString('hex'))
+    const privKeyStr = sthUtil.addHexPrefix(privKey.toString('hex'))
     const hex = utils.tx.signRawUserTransaction(
       privKeyStr,
       tx,
@@ -67,20 +67,20 @@ class SimpleKeyring extends EventEmitter {
 
   // For eth_sign, we need to sign arbitrary data:
   signMessage(address, data, opts = {}) {
-    const message = ethUtil.stripHexPrefix(data)
+    const message = sthUtil.stripHexPrefix(data)
     const privKey = this.getPrivateKeyFor(address, opts);
-    var msgSig = ethUtil.ecsign(Buffer.from(message, 'hex'), privKey)
-    var rawMsgSig = ethUtil.bufferToHex(sigUtil.concatSig(msgSig.v, msgSig.r, msgSig.s))
+    var msgSig = sthUtil.ecsign(Buffer.from(message, 'hex'), privKey)
+    var rawMsgSig = sthUtil.bufferToHex(sigUtil.concatSig(msgSig.v, msgSig.r, msgSig.s))
     return Promise.resolve(rawMsgSig)
   }
 
   // For eth_sign, we need to sign transactions:
   newGethSignMessage(withAccount, msgHex, opts = {}) {
     const privKey = this.getPrivateKeyFor(withAccount, opts);
-    const msgBuffer = ethUtil.toBuffer(msgHex)
-    const msgHash = ethUtil.hashPersonalMessage(msgBuffer)
-    const msgSig = ethUtil.ecsign(msgHash, privKey)
-    const rawMsgSig = ethUtil.bufferToHex(sigUtil.concatSig(msgSig.v, msgSig.r, msgSig.s))
+    const msgBuffer = sthUtil.toBuffer(msgHex)
+    const msgHash = sthUtil.hashPersonalMessage(msgBuffer)
+    const msgSig = sthUtil.ecsign(msgHash, privKey)
+    const rawMsgSig = sthUtil.bufferToHex(sigUtil.concatSig(msgSig.v, msgSig.r, msgSig.s))
     return Promise.resolve(rawMsgSig)
   }
 
@@ -96,7 +96,7 @@ class SimpleKeyring extends EventEmitter {
   // For eth_decryptMessage:
   decryptMessage(withAccount, encryptedData) {
     const wallet = this._getWalletForAccount(withAccount)
-    const privKey = ethUtil.stripHexPrefix(wallet.getPrivateKey())
+    const privKey = sthUtil.stripHexPrefix(wallet.getPrivateKey())
     const privKeyBuffer = Buffer.from(privKey, 'hex')
     const sig = sigUtil.decrypt(encryptedData, privKey)
     return Promise.resolve(sig)
@@ -140,7 +140,7 @@ class SimpleKeyring extends EventEmitter {
   // get public key
   getEncryptionPublicKey(withAccount, opts = {}) {
     const privKey = this.getPrivateKeyFor(withAccount, opts);
-    const privKeyStr = ethUtil.addHexPrefix(privKey.toString('hex'))
+    const privKeyStr = sthUtil.addHexPrefix(privKey.toString('hex'))
     const publicKey = encoding.privateKeyToPublicKey(privKeyStr)
     return Promise.resolve(publicKey)
   }
@@ -150,7 +150,7 @@ class SimpleKeyring extends EventEmitter {
       throw new Error('Must specify address.');
     }
     const wallet = this._getWalletForAccount(address, opts)
-    const privKey = ethUtil.toBuffer(wallet.getPrivateKey())
+    const privKey = sthUtil.toBuffer(wallet.getPrivateKey())
     return privKey;
   }
 
@@ -176,10 +176,10 @@ class SimpleKeyring extends EventEmitter {
   }
 
   removeAccount(address) {
-    if (!this.wallets.map(w => ethUtil.bufferToHex(w.getAddress()).toLowerCase()).includes(address.toLowerCase())) {
+    if (!this.wallets.map(w => sthUtil.bufferToHex(w.getAddress()).toLowerCase()).includes(address.toLowerCase())) {
       throw new Error(`Address ${address} not found in this keyring`)
     }
-    this.wallets = this.wallets.filter(w => ethUtil.bufferToHex(w.getAddress()).toLowerCase() !== address.toLowerCase())
+    this.wallets = this.wallets.filter(w => sthUtil.bufferToHex(w.getAddress()).toLowerCase() !== address.toLowerCase())
   }
 
   getReceiptIdentifiers() {
@@ -203,14 +203,14 @@ class SimpleKeyring extends EventEmitter {
 
   _getWalletForAccount(account, opts = {}) {
     const address = sigUtil.normalize(account)
-    let wallet = this.wallets.find(w => ethUtil.bufferToHex(w.getAddress()) === address)
+    let wallet = this.wallets.find(w => sthUtil.bufferToHex(w.getAddress()) === address)
     if (!wallet) throw new Error('Simple Keyring - Unable to find matching address.')
 
     if (opts.withAppKeyOrigin) {
       const privKey = wallet.getPrivateKey()
       const appKeyOriginBuffer = Buffer.from(opts.withAppKeyOrigin, 'utf8')
       const appKeyBuffer = Buffer.concat([privKey, appKeyOriginBuffer])
-      const appKeyPrivKey = ethUtil.keccak(appKeyBuffer, 256)
+      const appKeyPrivKey = sthUtil.keccak(appKeyBuffer, 256)
       wallet = Wallet.fromPrivateKey(appKeyPrivKey)
     }
 
