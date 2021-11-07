@@ -188,6 +188,11 @@ class SimpleKeyring extends EventEmitter {
     this.wallets = this.wallets.filter(w => stcUtil.bufferToHex(w.getAddress()).toLowerCase() !== address.toLowerCase())
   }
 
+  getReceiptIdentifier(address, opts = {}) {
+    const wallet = this._getWalletForAccount(address, opts)
+    return Promise.resolve(wallet.getReceiptIdentifier())
+  }
+
   getReceiptIdentifiers() {
     return Promise.all(this.wallets.map((w) => {
       const address = sigUtil.normalize(w.getAddress().toString('hex'))
