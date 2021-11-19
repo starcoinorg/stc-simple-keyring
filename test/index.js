@@ -72,11 +72,10 @@ describe('simple-keyring', () => {
     it('constructs', async () => {
       const keyring = new SimpleKeyring([{ privateKey: testAccount.privateKey, publicKey: testAccount.publicKey }])
 
-      keyring.getReceiptIdentifiers()
-        .then((receiptIdentifiers) => {
-          // console.log(receiptIdentifiers)
-          assert.equal(receiptIdentifiers[0].address, testAccount.address)
-          assert.equal(receiptIdentifiers[0].receiptIdentifier, testAccount.receiptIdentifier)
+      keyring.getReceiptIdentifier(testAccount.address)
+        .then((receiptIdentifier) => {
+          console.log(receiptIdentifier)
+          assert.equal(receiptIdentifier, testAccount.receiptIdentifier)
         })
     })
   })
