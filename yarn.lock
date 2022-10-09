@@ -252,6 +252,21 @@
     safe-buffer "^5.1.1"
     secp256k1 "^3.0.1"
 
+"@starcoin/stc-util@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@starcoin/stc-util/-/stc-util-0.6.0.tgz#96d721fab2156ceccb9e7427fa2f37cce73076f7"
+  integrity sha512-G7nrEPijZHF5MEgaC5x5A+28u5Xm3oOAHZfJyzplC6A9vrlGWmqi14z0IEio4k4K50XgyQ+i7s1ClSorgtgrrg==
+  dependencies:
+    "@starcoin/stc-ed25519" "^0.1.0"
+    bn.js "^4.11.0"
+    create-hash "^1.1.2"
+    ethjs-util "0.1.6"
+    js-sha3 "^0.8.0"
+    keccak "^1.0.2"
+    rlp "^2.0.0"
+    safe-buffer "^5.1.1"
+    secp256k1 "^3.0.1"
+
 "@starcoin/stc-util@^0.3.0":
   version "0.3.0"
   resolved "https://registry.npmjs.org/@starcoin/stc-util/-/stc-util-0.3.0.tgz#c98ed5879c066e815b40c1f408204945acde9b4c"
@@ -267,14 +282,14 @@
     safe-buffer "^5.1.1"
     secp256k1 "^3.0.1"
 
-"@starcoin/stc-wallet@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.npmjs.org/@starcoin/stc-wallet/-/stc-wallet-1.2.2.tgz#7d13e615460a947cb86e8cb0b8f3e2e1aca41c22"
-  integrity sha512-Y6LjkZxMnUAu2UvFUsyoZqKw8KwvNBc60+CkMJ9pKbRxPZffD1DYRCaBVIrWZz319/+0XteJrW62bZa0G5+lpQ==
+"@starcoin/stc-wallet@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@starcoin/stc-wallet/-/stc-wallet-1.3.0.tgz#969862825b38feddc33cd8d8f500e2dfa63341ea"
+  integrity sha512-/6bPuO9R8pYONWDY0juo5/NqnH38ZM4XHlqsu9BaDnDKZTx8jzUeUlygo1hZR4wjs61H2nX/PLnDbdRg3tAW+w==
   dependencies:
     "@starcoin/starcoin" "^1.2.1"
     "@starcoin/stc-hdkey" "^0.3.0"
-    "@starcoin/stc-util" "^0.3.0"
+    "@starcoin/stc-util" "0.6.0"
     aes-js "^3.1.1"
     bs58check "^2.1.2"
     ethereumjs-util "^6.0.0"
