@@ -24,6 +24,9 @@ class SimpleKeyring extends EventEmitter {
   deserialize(keyPairs = []) {
     return new Promise((resolve, reject) => {
       try {
+        if (typeof keyPairs === 'object' && Object.keys(keyPairs).length === 0) {
+          keyPairs = []
+        }
         this.wallets = keyPairs.map(({ privateKey, publicKey }) => {
           const privateKeyStripped = stcUtil.stripHexPrefix(privateKey)
           const privateKeyBuffer = Buffer.from(privateKeyStripped, 'hex')
@@ -183,7 +186,7 @@ class SimpleKeyring extends EventEmitter {
 
   removeAccount(address) {
     if (!this.wallets.map(w => stcUtil.bufferToHex(w.getAddress()).toLowerCase()).includes(address.toLowerCase())) {
-      throw new Error(`Address ${address} not found in this keyring`)
+      throw new Error(`Address ${ address } not found in this keyring`)
     }
     this.wallets = this.wallets.filter(w => stcUtil.bufferToHex(w.getAddress()).toLowerCase() !== address.toLowerCase())
   }
